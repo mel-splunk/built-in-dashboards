@@ -6,6 +6,6 @@ provider "signalfx" {
   auth_token = var.sfx_token
 }
 
-module "aws" {
-  source = "./aws"
+module "aws_ec2" {
+  source = "./aws_ec2"
 }
