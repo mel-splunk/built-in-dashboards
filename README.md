@@ -12,7 +12,7 @@ Each "integration" is contained in a module. For example the AWS EC2 integration
 
 Using this repo you can `terraform apply` yourself a full copy of all the dashboards as a sort of staging environment. This will, of course, not replace the actual built-in content of SignalFx. That process is internal to SignalFx.
 
-You'll need to provide the var `sfx_token` to use this. I recommend using a `terraform.tfvars` file, which is already in the `.gitignore`, for frequent users.
+You'll need to provide the var `sfx_token` to use this. I recommend using a `terraform.tfvars` file, which is already in the `.gitignore` for frequent users.
 
 # Importer
 
