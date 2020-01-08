@@ -37,7 +37,9 @@ resource "signalfx_dashboard" "signalfx_aws_ec2_instances" {
 }
 ```
 
-You can then cut and paste the `signalfx_dashboard` section to your *real* working directory and comment out all the other lines and begin a process that looks like this:
+You can then cut and paste the `signalfx_dashboard` section to your *real* working directory. (Or maybe just the `chart` bits since it's better to `terraform import` the dashboard separately to get it's other parts)
+
+ Comment out all the other lines and begin a process that looks like this:
 
 ```
 # copy the terraform import line
