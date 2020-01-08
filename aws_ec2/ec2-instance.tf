@@ -215,9 +215,17 @@ resource "signalfx_dashboard" "sfx_aws_ec2_instance" {
   dashboard_group = signalfx_dashboard_group.sfx_aws.id
 
   variable {
-    property = "InstanceId"
-    alias = "instance"
-    values = ["i-0604a6e591333ceac"]
+    alias                  = "instance"
+    apply_if_exist         = false
+    description            = "EC2 instance"
+    property               = "InstanceId"
+    replace_only           = false
+    restricted_suggestions = false
+    value_required         = true
+    values                 = [
+        "Choose instance",
+    ]
+    values_suggested       = []
   }
 
   chart {

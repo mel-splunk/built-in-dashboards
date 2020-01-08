@@ -38,7 +38,7 @@ with signalfx.SignalFx(
 
 
     print(f"""resource "signalfx_dashboard" "{dashboard_name}" {{""")
-    print(f"""\tname = "{dash["name"]}"""")
+    print(f"""\tname = "{dash["name"]}\"""")
 
     for i, chart in enumerate(charts):
         print("""\tchart {""")
