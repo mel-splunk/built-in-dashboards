@@ -1,623 +1,623 @@
 resource "signalfx_single_value_chart" "sfx_aws_alb_instance_active_conns" {
-    color_by                = "Dimension"
-    description             = "Total number of concurrent TCP connections active from clients to the load balancer and from the load balancer to targets."
-    max_precision           = 0
-    name                    = "Active Connections"
-    program_text            = "A = data('ActiveConnectionCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum'), rollup='average').publish(label='A')"
-    secondary_visualization = "None"
-    show_spark_line         = false
-    unit_prefix             = "Metric"
+  color_by                = "Dimension"
+  description             = "Total number of concurrent TCP connections active from clients to the load balancer and from the load balancer to targets."
+  max_precision           = 0
+  name                    = "Active Connections"
+  program_text            = "A = data('ActiveConnectionCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum'), rollup='average').publish(label='A')"
+  secondary_visualization = "None"
+  show_spark_line         = false
+  unit_prefix             = "Metric"
 
-    viz_options {
-        display_name = "ActiveConnectionCount"
-        label        = "A"
-    }
+  viz_options {
+    display_name = "ActiveConnectionCount"
+    label        = "A"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_tls_errors_by_az" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Dimension"
-    disable_sampling   = false
-    minimum_resolution = 0
-    name               = "Target TLS Negotiation Errors per AZ"
-    plot_type          = "LineChart"
-    program_text       = "A = data('TargetTLSNegotiationErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='sum', extrapolation='zero').sum(by=['AvailabilityZone']).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 900
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "Target TLS Negotiation Errors per AZ"
+  plot_type          = "LineChart"
+  program_text       = "A = data('TargetTLSNegotiationErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='sum', extrapolation='zero').sum(by=['AvailabilityZone']).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 900
+  unit_prefix        = "Metric"
 
-    axis_left {
-        label          = "errors per sec"
-    }
+  axis_left {
+    label = "errors per sec"
+  }
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "TargetTLSNegotiationErrorCount - Sum by sf_metric"
-        label        = "A"
-        value_suffix = "errors"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "TargetTLSNegotiationErrorCount - Sum by sf_metric"
+    label        = "A"
+    value_suffix = "errors"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_conn_errors_by_az" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Dimension"
-    description        = "Number of connections that were not successfully established between the load balancer and target."
-    disable_sampling   = false
-    minimum_resolution = 0
-    name               = "Target Connection Errors per AZ"
-    plot_type          = "LineChart"
-    program_text       = "A = data('TargetConnectionErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('TargetGroup', '*') and filter('AvailabilityZone', '*'), rollup='sum', extrapolation='zero').sum(by=['AvailabilityZone']).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 3600
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  description        = "Number of connections that were not successfully established between the load balancer and target."
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "Target Connection Errors per AZ"
+  plot_type          = "LineChart"
+  program_text       = "A = data('TargetConnectionErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('TargetGroup', '*') and filter('AvailabilityZone', '*'), rollup='sum', extrapolation='zero').sum(by=['AvailabilityZone']).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 3600
+  unit_prefix        = "Metric"
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "TargetConnectionErrorCount - Sum by AvailabilityZone"
-        label        = "A"
-        value_suffix = " errors"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "TargetConnectionErrorCount - Sum by AvailabilityZone"
+    label        = "A"
+    value_suffix = " errors"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_req_count_by_az" {
-    axes_include_zero         = false
-    axes_precision            = 0
-    color_by                  = "Dimension"
-    description               = "Number of requests processed over IPv4 and IPv6. This count includes only the requests with a response generated by a target of the load balancer."
-    disable_sampling          = false
-    minimum_resolution        = 0
-    name                      = "Request Count per AZ"
-    on_chart_legend_dimension = "AvailabilityZone"
-    plot_type                 = "AreaChart"
-    program_text              = "A = data('RequestCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('TargetGroup', '*') and filter('AvailabilityZone', '*') and filter('stat', 'sum'), rollup='average').sum(by=['AvailabilityZone']).publish(label='A')"
-    show_data_markers         = false
-    show_event_lines          = false
-    stacked                   = true
-    time_range                = 900
-    unit_prefix               = "Metric"
+  axes_include_zero         = false
+  axes_precision            = 0
+  color_by                  = "Dimension"
+  description               = "Number of requests processed over IPv4 and IPv6. This count includes only the requests with a response generated by a target of the load balancer."
+  disable_sampling          = false
+  minimum_resolution        = 0
+  name                      = "Request Count per AZ"
+  on_chart_legend_dimension = "AvailabilityZone"
+  plot_type                 = "AreaChart"
+  program_text              = "A = data('RequestCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('TargetGroup', '*') and filter('AvailabilityZone', '*') and filter('stat', 'sum'), rollup='average').sum(by=['AvailabilityZone']).publish(label='A')"
+  show_data_markers         = false
+  show_event_lines          = false
+  stacked                   = true
+  time_range                = 900
+  unit_prefix               = "Metric"
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "RequestCount - Sum by AvailabilityZone"
-        label        = "A"
-        value_suffix = "reqs"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "RequestCount - Sum by AvailabilityZone"
+    label        = "A"
+    value_suffix = "reqs"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_client_tls_error_by_az" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Dimension"
-    disable_sampling   = false
-    minimum_resolution = 0
-    name               = "Client TLS Negotiation Error Count per AZ"
-    plot_type          = "LineChart"
-    program_text       = "A = data('ClientTLSNegotiationErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='average').sum(by=['AvailabilityZone']).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 900
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "Client TLS Negotiation Error Count per AZ"
+  plot_type          = "LineChart"
+  program_text       = "A = data('ClientTLSNegotiationErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='average').sum(by=['AvailabilityZone']).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 900
+  unit_prefix        = "Metric"
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    legend_options_fields {
-        enabled  = true
-        property = "LoadBalancer"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "sf_originatingMetric"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "sf_metric"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "stat"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "namespace"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "AvailabilityZone"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "AWSUniqueId"
-    }
+  legend_options_fields {
+    enabled  = true
+    property = "LoadBalancer"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "sf_originatingMetric"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "sf_metric"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "stat"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "namespace"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "AvailabilityZone"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "AWSUniqueId"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "ClientTLSNegotiationErrorCount - Sum by AvailabilityZone"
-        label        = "A"
-        value_suffix = "errors"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "ClientTLSNegotiationErrorCount - Sum by AvailabilityZone"
+    label        = "A"
+    value_suffix = "errors"
+  }
 }
 
 resource "signalfx_list_chart" "sfx_aws_alb_instance_routed_hosts_by_az" {
-    color_by                = "Dimension"
-    disable_sampling        = false
-    max_precision           = 1
-    name                    = "# Routed Hosts per AZ"
-    program_text            = <<-EOF
+  color_by                = "Dimension"
+  disable_sampling        = false
+  max_precision           = 1
+  name                    = "# Routed Hosts per AZ"
+  program_text            = <<-EOF
         A = data('HealthyHostCount', filter=filter('stat', 'mean') and filter('AvailabilityZone', '*') and filter('namespace', 'AWS/ApplicationELB') and filter('TargetGroup', '*'), extrapolation='last_value', maxExtrapolations=5).sum(by=['AvailabilityZone']).publish(label='A')
         B = data('UnHealthyHostCount', filter=filter('stat', 'mean') and filter('AvailabilityZone', '*') and filter('namespace', 'AWS/ApplicationELB') and filter('TargetGroup', '*'), extrapolation='last_value', maxExtrapolations=5).sum(by=['AvailabilityZone']).publish(label='B')
     EOF
-    secondary_visualization = "None"
-    sort_by                 = "+AvailabilityZone"
-    time_range              = 900
-    unit_prefix             = "Metric"
+  secondary_visualization = "None"
+  sort_by                 = "+AvailabilityZone"
+  time_range              = 900
+  unit_prefix             = "Metric"
 
-    viz_options {
-        display_name = "Healthy"
-        label        = "A"
-    }
-    viz_options {
-        display_name = "Unhealthy"
-        label        = "B"
-    }
+  viz_options {
+    display_name = "Healthy"
+    label        = "A"
+  }
+  viz_options {
+    display_name = "Unhealthy"
+    label        = "B"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_target_resp_time_by_az" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Dimension"
-    description        = "The time elapsed, in seconds, after the request leaves the load balancer until a response from the target is received. This is equivalent to the target_processing_time field in the access logs."
-    disable_sampling   = false
-    minimum_resolution = 0
-    name               = "Average Target Response Time per AZ"
-    plot_type          = "LineChart"
-    program_text       = "A = data('TargetResponseTime', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'mean') and filter('AvailabilityZone', '*') and filter('TargetGroup', '*')).mean(by=['AvailabilityZone']).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 900
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  description        = "The time elapsed, in seconds, after the request leaves the load balancer until a response from the target is received. This is equivalent to the target_processing_time field in the access logs."
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "Average Target Response Time per AZ"
+  plot_type          = "LineChart"
+  program_text       = "A = data('TargetResponseTime', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'mean') and filter('AvailabilityZone', '*') and filter('TargetGroup', '*')).mean(by=['AvailabilityZone']).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 900
+  unit_prefix        = "Metric"
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "TargetResponseTime - Mean by AvailabilityZone"
-        label        = "A"
-        value_unit   = "Second"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "TargetResponseTime - Mean by AvailabilityZone"
+    label        = "A"
+    value_unit   = "Second"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_proc_bytes_by_lb" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Dimension"
-    description        = "The total number of bytes processed by the load balancer over IPv4 and IPv6."
-    disable_sampling   = false
-    minimum_resolution = 0
-    name               = "Processed Bytes/s"
-    plot_type          = "LineChart"
-    program_text       = "A = data('ProcessedBytes', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum')).sum(by=['LoadBalancer']).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 900
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  description        = "The total number of bytes processed by the load balancer over IPv4 and IPv6."
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "Processed Bytes/s"
+  plot_type          = "LineChart"
+  program_text       = "A = data('ProcessedBytes', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum')).sum(by=['LoadBalancer']).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 900
+  unit_prefix        = "Metric"
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "Bytes/s"
-        label        = "A"
-        value_unit   = "Byte"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "Bytes/s"
+    label        = "A"
+    value_unit   = "Byte"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_resp_count_by_az" {
-    axes_include_zero         = false
-    axes_precision            = 0
-    color_by                  = "Dimension"
-    disable_sampling          = false
-    minimum_resolution        = 0
-    name                      = "Total HTTP Responses per AZ"
-    on_chart_legend_dimension = "AvailabilityZone"
-    plot_type                 = "AreaChart"
-    program_text              = "A = data('HTTPCode_T*', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*') and filter('TargetGroup', '*'), rollup='average').sum(by=['AvailabilityZone']).publish(label='A')"
-    show_data_markers         = false
-    show_event_lines          = false
-    stacked                   = true
-    time_range                = 900
-    unit_prefix               = "Metric"
+  axes_include_zero         = false
+  axes_precision            = 0
+  color_by                  = "Dimension"
+  disable_sampling          = false
+  minimum_resolution        = 0
+  name                      = "Total HTTP Responses per AZ"
+  on_chart_legend_dimension = "AvailabilityZone"
+  plot_type                 = "AreaChart"
+  program_text              = "A = data('HTTPCode_T*', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*') and filter('TargetGroup', '*'), rollup='average').sum(by=['AvailabilityZone']).publish(label='A')"
+  show_data_markers         = false
+  show_event_lines          = false
+  stacked                   = true
+  time_range                = 900
+  unit_prefix               = "Metric"
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "Responses"
-        label        = "A"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "Responses"
+    label        = "A"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_resps_by_code" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Metric"
-    description        = "Number of HTTP error codes that originate from the load balancer. These requests have not been received by the target. This count does not include any response codes generated by the targets."
-    disable_sampling   = false
-    minimum_resolution = 60
-    name               = "HTTP Response Code Count"
-    plot_type          = "LineChart"
-    program_text       = "A = data('HTTPCode_ELB*XX*', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='average', extrapolation='zero').sum(by=['sf_metric']).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 900
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Metric"
+  description        = "Number of HTTP error codes that originate from the load balancer. These requests have not been received by the target. This count does not include any response codes generated by the targets."
+  disable_sampling   = false
+  minimum_resolution = 60
+  name               = "HTTP Response Code Count"
+  plot_type          = "LineChart"
+  program_text       = "A = data('HTTPCode_ELB*XX*', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='average', extrapolation='zero').sum(by=['sf_metric']).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 900
+  unit_prefix        = "Metric"
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    legend_options_fields {
-        enabled  = true
-        property = "sf_originatingMetric"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "sf_metric"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "LoadBalancer"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "stat"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "namespace"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "AvailabilityZone"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "AWSUniqueId"
-    }
+  legend_options_fields {
+    enabled  = true
+    property = "sf_originatingMetric"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "sf_metric"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "LoadBalancer"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "stat"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "namespace"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "AvailabilityZone"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "AWSUniqueId"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "Response Count"
-        label        = "A"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "Response Count"
+    label        = "A"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_consumed_lcus" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Dimension"
-    description        = "Load balancer capacity units (LCU) used by your load balancer. You pay for the number of LCUs that you use per hour."
-    disable_sampling   = false
-    minimum_resolution = 0
-    name               = "Consumed LCUs"
-    plot_type          = "LineChart"
-    program_text       = "A = data('ConsumedLCUs', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'mean')).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 3600
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  description        = "Load balancer capacity units (LCU) used by your load balancer. You pay for the number of LCUs that you use per hour."
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "Consumed LCUs"
+  plot_type          = "LineChart"
+  program_text       = "A = data('ConsumedLCUs', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'mean')).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 3600
+  unit_prefix        = "Metric"
 
-    axis_left {
-        label          = "LCU used"
-    }
+  axis_left {
+    label = "LCU used"
+  }
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "ConsumedLCUs"
-        label        = "A"
-        value_suffix = "LCUs"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "ConsumedLCUs"
+    label        = "A"
+    value_suffix = "LCUs"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_req_count_by_target_group" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Dimension"
-    description        = "Average number of requests received by each target in a target group."
-    disable_sampling   = false
-    minimum_resolution = 0
-    name               = "Requests per Target Group"
-    plot_type          = "LineChart"
-    program_text       = "A = data('RequestCountPerTarget', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('TargetGroup', '*'), rollup='sum').sum(by=['TargetGroup']).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 900
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  description        = "Average number of requests received by each target in a target group."
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "Requests per Target Group"
+  plot_type          = "LineChart"
+  program_text       = "A = data('RequestCountPerTarget', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('TargetGroup', '*'), rollup='sum').sum(by=['TargetGroup']).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 900
+  unit_prefix        = "Metric"
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    legend_options_fields {
-        enabled  = true
-        property = "TargetGroup"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "LoadBalancer"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "AWSUniqueId"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "sf_originatingMetric"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "sf_metric"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "stat"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "namespace"
-    }
+  legend_options_fields {
+    enabled  = true
+    property = "TargetGroup"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "LoadBalancer"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "AWSUniqueId"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "sf_originatingMetric"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "sf_metric"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "stat"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "namespace"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "Requests"
-        label        = "A"
-        value_suffix = "reqs"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "Requests"
+    label        = "A"
+    value_suffix = "reqs"
+  }
 }
 
 resource "signalfx_list_chart" "sfx_aws_alb_instance_resp_by_target_group" {
-    color_by                = "Dimension"
-    description             = "Number of HTTP response codes generated by the targets. This does not include any response codes generated by the load balancer."
-    disable_sampling        = false
-    max_precision           = 2
-    name                    = "HTTP Response Counts per Target Group"
-    program_text            = "A = data('HTTPCode_T*', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*') and filter('TargetGroup', '*'), rollup='average').sum(by=['sf_metric', 'TargetGroup']).publish(label='A')"
-    secondary_visualization = "Sparkline"
-    sort_by                 = "-value"
-    time_range              = 900
-    unit_prefix             = "Metric"
+  color_by                = "Dimension"
+  description             = "Number of HTTP response codes generated by the targets. This does not include any response codes generated by the load balancer."
+  disable_sampling        = false
+  max_precision           = 2
+  name                    = "HTTP Response Counts per Target Group"
+  program_text            = "A = data('HTTPCode_T*', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*') and filter('TargetGroup', '*'), rollup='average').sum(by=['sf_metric', 'TargetGroup']).publish(label='A')"
+  secondary_visualization = "Sparkline"
+  sort_by                 = "-value"
+  time_range              = 900
+  unit_prefix             = "Metric"
 
-    legend_options_fields {
-        enabled  = true
-        property = "sf_originatingMetric"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "TargetGroup"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "AvailabilityZone"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "AWSUniqueId"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "LoadBalancer"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "namespace"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "sf_metric"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "stat"
-    }
+  legend_options_fields {
+    enabled  = true
+    property = "sf_originatingMetric"
+  }
+  legend_options_fields {
+    enabled  = true
+    property = "TargetGroup"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "AvailabilityZone"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "AWSUniqueId"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "LoadBalancer"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "namespace"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "sf_metric"
+  }
+  legend_options_fields {
+    enabled  = false
+    property = "stat"
+  }
 
-    viz_options {
-        display_name = "Responses"
-        label        = "A"
-    }
+  viz_options {
+    display_name = "Responses"
+    label        = "A"
+  }
 }
 
 resource "signalfx_time_chart" "sfx_aws_alb_instance_new_conn_count" {
-    axes_include_zero  = false
-    axes_precision     = 0
-    color_by           = "Dimension"
-    description        = "Total number of new TCP connections established from clients to the load balancer and from the load balancer to targets."
-    disable_sampling   = false
-    minimum_resolution = 0
-    name               = "New Connection Count"
-    plot_type          = "LineChart"
-    program_text       = "A = data('NewConnectionCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum'), rollup='average').mean(by=['LoadBalancer']).publish(label='A')"
-    show_data_markers  = false
-    show_event_lines   = false
-    stacked            = false
-    time_range         = 3600
-    unit_prefix        = "Metric"
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  description        = "Total number of new TCP connections established from clients to the load balancer and from the load balancer to targets."
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "New Connection Count"
+  plot_type          = "LineChart"
+  program_text       = "A = data('NewConnectionCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum'), rollup='average').mean(by=['LoadBalancer']).publish(label='A')"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 3600
+  unit_prefix        = "Metric"
 
-    axis_left {
-        label          = "connections"
-    }
+  axis_left {
+    label = "connections"
+  }
 
-    histogram_options {
-        color_theme = "red"
-    }
+  histogram_options {
+    color_theme = "red"
+  }
 
-    viz_options {
-        axis         = "left"
-        display_name = "NewConnectionCount"
-        label        = "A"
-    }
+  viz_options {
+    axis         = "left"
+    display_name = "NewConnectionCount"
+    label        = "A"
+  }
 }
 
 resource "signalfx_dashboard" "sfx_aws_alb_instance" {
-	name = "Application ELB Instance"
+  name              = "Application ELB Instance"
   charts_resolution = "default"
   dashboard_group   = signalfx_dashboard_group.sfx_aws_alb.id
 
   variable {
-          alias                  = "Load Balancer"
-          apply_if_exist         = false
-          property               = "LoadBalancer"
-          replace_only           = false
-          restricted_suggestions = false
-          value_required         = true
-          values                 = [
-              "Choose a Load Balancer",
-          ]
-          values_suggested       = []
+    alias                  = "Load Balancer"
+    apply_if_exist         = false
+    property               = "LoadBalancer"
+    replace_only           = false
+    restricted_suggestions = false
+    value_required         = true
+    values = [
+      "Choose a Load Balancer",
+    ]
+    values_suggested = []
   }
 
-	chart {
-		chart_id = signalfx_single_value_chart.sfx_aws_alb_instance_active_conns.id
-		row = 0
-		column = 0
-		height = 1
-		width = 4
-	}
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_tls_errors_by_az.id
-		row = 0
-		column = 4
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_single_value_chart.sfx_aws_alb_instance_active_conns.id
+    row      = 0
+    column   = 0
+    height   = 1
+    width    = 4
+  }
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_tls_errors_by_az.id
+    row      = 0
+    column   = 4
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_conn_errors_by_az.id
-		row = 0
-		column = 8
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_conn_errors_by_az.id
+    row      = 0
+    column   = 8
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_req_count_by_az.id
-		row = 1
-		column = 0
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_req_count_by_az.id
+    row      = 1
+    column   = 0
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_client_tls_error_by_az.id
-		row = 1
-		column = 4
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_client_tls_error_by_az.id
+    row      = 1
+    column   = 4
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_list_chart.sfx_aws_alb_instance_routed_hosts_by_az.id
-		row = 1
-		column = 8
-		height = 2
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_list_chart.sfx_aws_alb_instance_routed_hosts_by_az.id
+    row      = 1
+    column   = 8
+    height   = 2
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_target_resp_time_by_az.id
-		row = 2
-		column = 0
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_target_resp_time_by_az.id
+    row      = 2
+    column   = 0
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_proc_bytes_by_lb.id
-		row = 2
-		column = 4
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_proc_bytes_by_lb.id
+    row      = 2
+    column   = 4
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_resp_count_by_az.id
-		row = 3
-		column = 0
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_resp_count_by_az.id
+    row      = 3
+    column   = 0
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_resps_by_code.id
-		row = 3
-		column = 4
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_resps_by_code.id
+    row      = 3
+    column   = 4
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_consumed_lcus.id
-		row = 3
-		column = 8
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_consumed_lcus.id
+    row      = 3
+    column   = 8
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_req_count_by_target_group.id
-		row = 4
-		column = 0
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_req_count_by_target_group.id
+    row      = 4
+    column   = 0
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_list_chart.sfx_aws_alb_instance_resp_by_target_group.id
-		row = 4
-		column = 4
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_list_chart.sfx_aws_alb_instance_resp_by_target_group.id
+    row      = 4
+    column   = 4
+    height   = 1
+    width    = 4
+  }
 
-	chart {
-		chart_id = signalfx_time_chart.sfx_aws_alb_instance_new_conn_count.id
-		row = 4
-		column = 8
-		height = 1
-		width = 4
-	}
+  chart {
+    chart_id = signalfx_time_chart.sfx_aws_alb_instance_new_conn_count.id
+    row      = 4
+    column   = 8
+    height   = 1
+    width    = 4
+  }
 }
