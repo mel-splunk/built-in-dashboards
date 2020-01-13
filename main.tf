@@ -14,6 +14,10 @@ module "aws_api_gateway" {
   source = "./aws_api_gateway"
 }
 
+module "aws_asg" {
+  source = "./aws_asg"
+}
+
 module "aws_ebs" {
   source = "./aws_ebs"
 }
