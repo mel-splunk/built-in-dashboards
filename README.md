@@ -26,7 +26,7 @@ python import_dashboard.py SFX_KEY dashboardId dashboardName > scratchdir/main.t
 The output of this command is of the shape suitable for `terraform import`. Since this command can only work on single resources we've now got to do the rest of the work by hand. The output looks like:
 
 ```
-terraform import signalfx_time_chart.sfx_aws_ec2_instances_0 DjJ6LAIAcAA
+terraform import signalfx_time_chart.sfx_aws_ec2_instances_0 DjJ6LAIAcAA; terraform state show -no-color signalfx_time_chart.sfx_aws_ec2_instances_0 | grep -v url | grep -v -E "id *" | grep -v 17976931348623157 | -v -E "tags *" | pbcopy
 resource "signalfx_time_chart" "sfx_aws_ec2_instances_0" {
 }
 # repeated many times
@@ -43,7 +43,7 @@ You can then cut and paste the `signalfx_dashboard` section to your *real* worki
 
 ```
 # copy the terraform import line
-$ terraform import signalfx_time_chart.sfx_aws_ec2_instances_0 DjJ6LAIAcAA
+$ terraform import signalfx_time_chart.sfx_aws_ec2_instances_0 DjJ6LAIAcAA; terraform state show -no-color signalfx_time_chart.sfx_aws_ec2_instances_0 | grep -v url | grep -v -E "id *" | grep -v 17976931348623157 | -v -E "tags *" | pbcopy
 signalfx_time_chart.sfx_aws_ec2_instances_0: Importing from ID "DjJ6LAIAcAA"...
 signalfx_time_chart.sfx_aws_ec2_instances_0: Import prepared!
   Prepared signalfx_time_chart for import
@@ -53,8 +53,6 @@ Import successful!
 
 The resources that were imported are shown above. These resources are now in
 your Terraform state and will henceforth be managed by Terraform
-# Now grab the imported state
-$ terraform state show signalfx_time_chart.sfx_aws_ec2_instances_0
-# Copy the output and plop it into your working directory
-# be sure to remove `id` and `url` attributes.
 ```
+
+After running this the "state" will be in your buffer (via `pbcopy`) and you can paste it into an editor or whatever.
