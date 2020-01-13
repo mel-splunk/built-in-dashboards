@@ -9,3 +9,7 @@ provider "signalfx" {
 module "aws_ec2" {
   source = "./aws_ec2"
 }
+
+module "aws_ebs" {
+  source = "./aws_ebs"
+}
