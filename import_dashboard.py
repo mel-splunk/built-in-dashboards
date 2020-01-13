@@ -34,7 +34,7 @@ with signalfx.SignalFx(
 
         chart_types.append(tf_type)
 
-        print(f"""terraform import {tf_type}.{dashboard_name}_{i} {chart["chartId"]}; terraform state show -no-color {tf_type}.{dashboard_name}_{i} | grep -v url | grep -v -E "id *" | grep -v 17976931348623157 | -v -E "tags *" | pbcopy""")
+        print(f"""terraform import {tf_type}.{dashboard_name}_{i} {chart["chartId"]}; terraform state show -no-color {tf_type}.{dashboard_name}_{i} | grep -v url | grep -v -E "id *" | grep -v 17976931348623157 | grep -v -E "tags *" | pbcopy""")
         print(f"""resource "{tf_type}" "{dashboard_name}_{i}" {{""")
         print("""}""")
 

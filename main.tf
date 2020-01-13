@@ -10,6 +10,10 @@ module "aws_alb" {
   source = "./aws_alb"
 }
 
+module "aws_api_gateway" {
+  source = "./aws_api_gateway"
+}
+
 module "aws_ebs" {
   source = "./aws_ebs"
 }
