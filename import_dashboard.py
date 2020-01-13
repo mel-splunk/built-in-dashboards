@@ -24,10 +24,12 @@ with signalfx.SignalFx(
             tf_type = "signalfx_single_value_chart"
         elif chart_type == "List":
             tf_type = "signalfx_list_chart"
+        elif chart_type == "Text":
+            tf_type = "signalfx_text_chart"
         elif chart_type == "TimeSeriesChart":
             tf_type = "signalfx_time_chart"
         else:
-            print(f"Unknown chart type {chart_type}, exiting")
+            print(f"Exiting: Unknown chart type {chart_type}", file=sys.stderr)
             sys.exit()
 
         chart_types.append(tf_type)
