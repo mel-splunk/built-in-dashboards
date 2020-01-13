@@ -560,7 +560,7 @@ resource "signalfx_time_chart" "sfx_aws_ebs_volumes_write_latency" {
 
 resource "signalfx_dashboard" "sfx_aws_ebs_volumes" {
     charts_resolution = "default"
-    dashboard_group   = signalfx_dashboard_group.sfx_ebs.id
+    dashboard_group   = signalfx_dashboard_group.sfx_aws_ebs.id
     name              = "EBS Volumes"
 
     chart {

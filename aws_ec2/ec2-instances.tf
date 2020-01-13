@@ -526,7 +526,7 @@ resource "signalfx_time_chart" "sfx_aws_ec2_instances_network_bytes_out_compare"
 resource "signalfx_dashboard" "sfx_aws_ec2_instances" {
   name = "EC2 Instances"
 
-  dashboard_group = signalfx_dashboard_group.sfx_aws.id
+  dashboard_group = signalfx_dashboard_group.sfx_aws_ec2.id
 
   chart {
     chart_id = signalfx_single_value_chart.sfx_aws_ec2_instances_active_hosts.id

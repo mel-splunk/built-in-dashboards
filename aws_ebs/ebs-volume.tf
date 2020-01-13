@@ -470,7 +470,7 @@ resource "signalfx_single_value_chart" "sfx_aws_ebs_volume_bytes_per_read" {
 
 resource "signalfx_dashboard" "sfx_aws_ebs_volume" {
     charts_resolution = "default"
-    dashboard_group   = signalfx_dashboard_group.sfx_ebs.id
+    dashboard_group   = signalfx_dashboard_group.sfx_aws_ebs.id
     name              = "EBS Volume"
 
     variable {

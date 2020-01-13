@@ -212,7 +212,7 @@ F = (B/D).publish(label='F')
 
 resource "signalfx_dashboard" "sfx_aws_ec2_instance" {
   name            = "EC2 Instance"
-  dashboard_group = signalfx_dashboard_group.sfx_aws.id
+  dashboard_group = signalfx_dashboard_group.sfx_aws_ec2.id
 
   variable {
     alias                  = "instance"
