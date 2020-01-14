@@ -22,6 +22,10 @@ module "aws_cloudfront" {
   source = "./aws_cloudfront"
 }
 
+module "aws_dynamodb" {
+  source = "./aws_dynamodb"
+}
+
 module "aws_ebs" {
   source = "./aws_ebs"
 }
