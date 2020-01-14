@@ -21,6 +21,7 @@ resource "signalfx_time_chart" "sfx_aws_alb_instance_tls_errors_by_az" {
   disable_sampling   = false
   minimum_resolution = 0
   name               = "Target TLS Negotiation Errors per AZ"
+  description        = "Number of TLS connections initiated by the load balancer that did not establish a session with the target. Possible causes include a mismatch of ciphers or protocols."
   plot_type          = "LineChart"
   program_text       = "A = data('TargetTLSNegotiationErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='sum', extrapolation='zero').sum(by=['AvailabilityZone']).publish(label='A')"
   show_data_markers  = false
@@ -109,6 +110,7 @@ resource "signalfx_time_chart" "sfx_aws_alb_instance_client_tls_error_by_az" {
   disable_sampling   = false
   minimum_resolution = 0
   name               = "Client TLS Negotiation Error Count per AZ"
+  description        = "Number of TLS connections initiated by the client that did not establish a session with the load balancer. Possible causes include a mismatch of ciphers or protocols."
   plot_type          = "LineChart"
   program_text       = "A = data('ClientTLSNegotiationErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='average').sum(by=['AvailabilityZone']).publish(label='A')"
   show_data_markers  = false

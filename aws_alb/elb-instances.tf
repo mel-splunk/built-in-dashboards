@@ -318,6 +318,7 @@ resource "signalfx_list_chart" "sfx_aws_alb_instances_top_tls_error_by_target" {
   disable_sampling        = false
   max_precision           = 2
   name                    = "Top 5 LBs by Target TLS Negotiation Errors"
+  description             = " "
   program_text            = "A = data('TargetTLSNegotiationErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*') and filter('TargetGroup', '*')).sum(by=['LoadBalancer']).top(count=5).publish(label='A')"
   secondary_visualization = "Sparkline"
   time_range              = 900
@@ -417,6 +418,7 @@ resource "signalfx_time_chart" "sfx_aws_alb_instances_top_client_tls_error_by_lb
   disable_sampling   = false
   minimum_resolution = 0
   name               = "Top 5 LBs by Client TLS Negotiation Errors"
+  description        = "Number of TLS connections initiated by the client that did not establish a session with the load balancer. Possible causes include a mismatch of ciphers or protocols."
   plot_type          = "LineChart"
   program_text       = "A = data('ClientTLSNegotiationErrorCount', filter=filter('namespace', 'AWS/ApplicationELB') and filter('stat', 'sum') and filter('AvailabilityZone', '*'), rollup='average').sum(by=['LoadBalancer']).top(count=5).publish(label='A')"
   show_data_markers  = false
@@ -466,7 +468,6 @@ resource "signalfx_time_chart" "sfx_aws_alb_instances_top_client_tls_error_by_lb
   }
 }
 
-# signalfx_list_chart.sfx_aws_alb_instances_11:
 resource "signalfx_list_chart" "sfx_aws_alb_instances_top_cpu_by_lb" {
   color_by                = "Dimension"
   description             = "Number of load balancer capacity units (LCU) used by your load balancer. You pay for the number of LCUs that you use per hour."
@@ -510,7 +511,6 @@ resource "signalfx_list_chart" "sfx_aws_alb_instances_top_cpu_by_lb" {
   }
 }
 
-# signalfx_list_chart.sfx_aws_alb_instances_12:
 resource "signalfx_list_chart" "sfx_aws_alb_instances_top_unhealthy_by_lb" {
   color_by                = "Dimension"
   disable_sampling        = false
@@ -540,7 +540,6 @@ resource "signalfx_list_chart" "sfx_aws_alb_instances_top_unhealthy_by_lb" {
   }
 }
 
-# signalfx_time_chart.sfx_aws_alb_instances_13:
 resource "signalfx_time_chart" "sfx_aws_alb_instances_change_in_req_count_by_lb" {
   axes_include_zero  = false
   axes_precision     = 0
@@ -548,6 +547,7 @@ resource "signalfx_time_chart" "sfx_aws_alb_instances_change_in_req_count_by_lb"
   disable_sampling   = false
   minimum_resolution = 0
   name               = "% Change in Request Count per Load Balancer"
+  description        = "Comparing now to 7 days ago | if LB did not exist 7 days ago, chart will not be populated"
   plot_type          = "LineChart"
   program_text       = <<-EOF
         A = data('RequestCount', filter=filter('AvailabilityZone', '*') and filter('LoadBalancer', '*') and filter('stat', 'sum') and filter('namespace', 'AWS/ApplicationELB') and filter('TargetGroup', '*'), rollup='average').mean(over='1h').sum(by=['LoadBalancer']).publish(label='A', enable=False)
@@ -589,6 +589,7 @@ resource "signalfx_time_chart" "sfx_aws_alb_instances_change_in_tgt_resp_time_by
   disable_sampling   = false
   minimum_resolution = 0
   name               = "% Change in Target Reponse Time per LB"
+  description        = "Comparing now vs 7 days ago | If LB did not exist 7 days ago, chart will not be populated"
   plot_type          = "LineChart"
   program_text       = <<-EOF
         A = data('TargetResponseTime', filter=filter('AvailabilityZone', '*') and filter('LoadBalancer', '*') and filter('stat', 'mean') and filter('namespace', 'AWS/ApplicationELB') and filter('TargetGroup', '*'), rollup='average').sum(by=['LoadBalancer']).mean(over='1h').publish(label='A', enable=False)
