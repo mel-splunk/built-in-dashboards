@@ -33,3 +33,7 @@ module "aws_ebs" {
 module "aws_ec2" {
   source = "./aws_ec2"
 }
+
+module "aws_ecs" {
+  source = "./aws_ecs"
+}
