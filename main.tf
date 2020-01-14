@@ -18,6 +18,10 @@ module "aws_asg" {
   source = "./aws_asg"
 }
 
+module "aws_cloudfront" {
+  source = "./aws_cloudfront"
+}
+
 module "aws_ebs" {
   source = "./aws_ebs"
 }
