@@ -37,3 +37,7 @@ module "aws_ec2" {
 module "aws_ecs" {
   source = "./aws_ecs"
 }
+
+module "aws_elasticache" {
+  source = "./aws_elasticache"
+}
