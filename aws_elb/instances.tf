@@ -349,6 +349,7 @@ resource "signalfx_text_chart" "sfx_aws_elb_instances_notes" {
   markdown = <<-EOF
         Empty charts indicate no activity of that category
 
+        Docs for [ELB CloudWatch metrics](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/elb-metricscollected.html)
     EOF
   name     = "Notes"
 }
