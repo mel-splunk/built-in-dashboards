@@ -45,3 +45,7 @@ module "aws_elasticache" {
 module "aws_elb" {
   source = "./aws_elb"
 }
+
+module "aws_rds_enhanced" {
+  source = "./aws_rds_enhanced"
+}
