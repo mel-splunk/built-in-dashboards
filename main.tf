@@ -46,6 +46,10 @@ module "aws_elb" {
   source = "./aws_elb"
 }
 
+module "aws_kinesis_analytics" {
+  source = "./aws_kinesis_analytics"
+}
+
 module "aws_rds_enhanced" {
   source = "./aws_rds_enhanced"
 }
