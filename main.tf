@@ -50,6 +50,10 @@ module "aws_kinesis_analytics" {
   source = "./aws_kinesis_analytics"
 }
 
+module "aws_kinesis_streams" {
+  source = "./aws_kinesis_streams"
+}
+
 module "aws_rds_enhanced" {
   source = "./aws_rds_enhanced"
 }
