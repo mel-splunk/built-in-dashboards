@@ -49,3 +49,7 @@ module "aws_elb" {
 module "aws_rds_enhanced" {
   source = "./aws_rds_enhanced"
 }
+
+module "aws_rds_enhanced_aurora" {
+  source = "./aws_rds_enhanced_aurora"
+}
