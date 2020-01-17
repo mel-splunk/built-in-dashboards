@@ -1,4 +1,4 @@
-resource "signalfx_single_value_chart" "sfx_aws_lambda_rds_instances_0" {
+resource "signalfx_single_value_chart" "sfx_aws_rds_instances_0" {
   color_by                = "Dimension"
   is_timestamp_hidden     = false
   max_precision           = 0
@@ -14,7 +14,7 @@ resource "signalfx_single_value_chart" "sfx_aws_lambda_rds_instances_0" {
   }
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_1" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_1" {
   color_by                = "Dimension"
   disable_sampling        = false
   max_precision           = 0
@@ -28,7 +28,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_1" {
   }
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_2" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_2" {
   color_by                = "Dimension"
   disable_sampling        = false
   max_precision           = 0
@@ -38,7 +38,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_2" {
   unit_prefix             = "Metric"
 }
 
-resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_3" {
+resource "signalfx_time_chart" "sfx_aws_rds_instances_3" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -107,7 +107,7 @@ resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_3" {
   }
 }
 
-resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_4" {
+resource "signalfx_time_chart" "sfx_aws_rds_instances_4" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -176,7 +176,7 @@ resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_4" {
   }
 }
 
-resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_5" {
+resource "signalfx_time_chart" "sfx_aws_rds_instances_5" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -245,7 +245,7 @@ resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_5" {
   }
 }
 
-resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_6" {
+resource "signalfx_time_chart" "sfx_aws_rds_instances_6" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -314,7 +314,7 @@ resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_6" {
   }
 }
 
-resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_7" {
+resource "signalfx_time_chart" "sfx_aws_rds_instances_7" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -383,7 +383,7 @@ resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_7" {
   }
 }
 
-resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_8" {
+resource "signalfx_time_chart" "sfx_aws_rds_instances_8" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -452,7 +452,7 @@ resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_8" {
   }
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_9" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_9" {
   color_by                = "Dimension"
   disable_sampling        = false
   max_precision           = 3
@@ -464,7 +464,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_9" {
   unit_prefix             = "Metric"
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_10" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_10" {
   color_by                = "Dimension"
   disable_sampling        = false
   max_precision           = 3
@@ -476,7 +476,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_10" {
   unit_prefix             = "Metric"
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_11" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_11" {
   color_by                = "Dimension"
   disable_sampling        = false
   max_precision           = 3
@@ -488,7 +488,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_11" {
   unit_prefix             = "Metric"
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_12" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_12" {
   color_by                = "Dimension"
   disable_sampling        = false
   max_precision           = 3
@@ -500,7 +500,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_12" {
   unit_prefix             = "Metric"
 }
 
-resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_13" {
+resource "signalfx_time_chart" "sfx_aws_rds_instances_13" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -575,7 +575,7 @@ resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_13" {
   }
 }
 
-resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_14" {
+resource "signalfx_time_chart" "sfx_aws_rds_instances_14" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -650,7 +650,7 @@ resource "signalfx_time_chart" "sfx_aws_lambda_rds_instances_14" {
   }
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_15" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_15" {
   color_by                = "Dimension"
   disable_sampling        = false
   max_precision           = 3
@@ -662,7 +662,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_15" {
   unit_prefix             = "Metric"
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_16" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_16" {
   color_by                = "Dimension"
   description             = "Count/Second"
   disable_sampling        = false
@@ -675,7 +675,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_16" {
   unit_prefix             = "Metric"
 }
 
-resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_17" {
+resource "signalfx_list_chart" "sfx_aws_rds_instances_17" {
   color_by                = "Dimension"
   disable_sampling        = false
   max_precision           = 3
@@ -687,7 +687,7 @@ resource "signalfx_list_chart" "sfx_aws_lambda_rds_instances_17" {
   unit_prefix             = "Metric"
 }
 
-resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
+resource "signalfx_dashboard" "sfx_aws_rds_instances" {
 
   charts_resolution = "default"
   dashboard_group   = signalfx_dashboard_group.sfx_aws_rds.id
@@ -695,7 +695,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   name              = "RDS Instances"
 
   chart {
-    chart_id = signalfx_single_value_chart.sfx_aws_lambda_rds_instances_0.id
+    chart_id = signalfx_single_value_chart.sfx_aws_rds_instances_0.id
     row      = 0
     column   = 0
     height   = 1
@@ -703,7 +703,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_1.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_1.id
     row      = 0
     column   = 4
     height   = 1
@@ -711,7 +711,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_2.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_2.id
     row      = 0
     column   = 8
     height   = 1
@@ -719,7 +719,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_time_chart.sfx_aws_lambda_rds_instances_3.id
+    chart_id = signalfx_time_chart.sfx_aws_rds_instances_3.id
     row      = 1
     column   = 0
     height   = 1
@@ -727,7 +727,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_time_chart.sfx_aws_lambda_rds_instances_4.id
+    chart_id = signalfx_time_chart.sfx_aws_rds_instances_4.id
     row      = 1
     column   = 4
     height   = 1
@@ -735,7 +735,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_time_chart.sfx_aws_lambda_rds_instances_5.id
+    chart_id = signalfx_time_chart.sfx_aws_rds_instances_5.id
     row      = 1
     column   = 8
     height   = 1
@@ -743,7 +743,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_time_chart.sfx_aws_lambda_rds_instances_6.id
+    chart_id = signalfx_time_chart.sfx_aws_rds_instances_6.id
     row      = 2
     column   = 0
     height   = 1
@@ -751,7 +751,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_time_chart.sfx_aws_lambda_rds_instances_7.id
+    chart_id = signalfx_time_chart.sfx_aws_rds_instances_7.id
     row      = 2
     column   = 4
     height   = 1
@@ -759,7 +759,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_time_chart.sfx_aws_lambda_rds_instances_8.id
+    chart_id = signalfx_time_chart.sfx_aws_rds_instances_8.id
     row      = 2
     column   = 8
     height   = 1
@@ -767,7 +767,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_9.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_9.id
     row      = 3
     column   = 0
     height   = 1
@@ -775,7 +775,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_10.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_10.id
     row      = 3
     column   = 4
     height   = 1
@@ -783,7 +783,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_11.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_11.id
     row      = 3
     column   = 8
     height   = 1
@@ -791,7 +791,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_12.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_12.id
     row      = 4
     column   = 0
     height   = 1
@@ -799,7 +799,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_time_chart.sfx_aws_lambda_rds_instances_13.id
+    chart_id = signalfx_time_chart.sfx_aws_rds_instances_13.id
     row      = 4
     column   = 4
     height   = 1
@@ -807,7 +807,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_time_chart.sfx_aws_lambda_rds_instances_14.id
+    chart_id = signalfx_time_chart.sfx_aws_rds_instances_14.id
     row      = 4
     column   = 8
     height   = 1
@@ -815,7 +815,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_15.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_15.id
     row      = 5
     column   = 0
     height   = 1
@@ -823,7 +823,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_16.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_16.id
     row      = 5
     column   = 4
     height   = 1
@@ -831,7 +831,7 @@ resource "signalfx_dashboard" "sfx_aws_lambda_rds_instances" {
   }
 
   chart {
-    chart_id = signalfx_list_chart.sfx_aws_lambda_rds_instances_17.id
+    chart_id = signalfx_list_chart.sfx_aws_rds_instances_17.id
     row      = 5
     column   = 8
     height   = 1
