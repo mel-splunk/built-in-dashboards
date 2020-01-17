@@ -62,6 +62,10 @@ module "aws_opsworks" {
   source = "./aws_opsworks"
 }
 
+module "aws_rds" {
+  source = "./aws_rds"
+}
+
 module "aws_rds_enhanced" {
   source = "./aws_rds_enhanced"
 }
