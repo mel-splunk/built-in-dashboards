@@ -28,6 +28,8 @@ with signalfx.SignalFx(
             tf_type = "signalfx_text_chart"
         elif chart_type == "TimeSeriesChart":
             tf_type = "signalfx_time_chart"
+        elif chart_type == "Heatmap":
+            tf_type = "signalfx_heatmap_chart"
         else:
             print(f"Exiting: Unknown chart type {chart_type}", file=sys.stderr)
             sys.exit()
