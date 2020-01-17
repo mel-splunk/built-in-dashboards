@@ -58,6 +58,10 @@ module "aws_lambda" {
   source = "./aws_lambda"
 }
 
+module "aws_opsworks" {
+  source = "./aws_opsworks"
+}
+
 module "aws_rds_enhanced" {
   source = "./aws_rds_enhanced"
 }
