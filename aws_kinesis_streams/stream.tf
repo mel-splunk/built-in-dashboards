@@ -626,7 +626,7 @@ resource "signalfx_dashboard" "sfx_aws_kinesis_streams_stream" {
     replace_only           = false
     restricted_suggestions = false
     value_required         = true
-    values                 = []
+    values                 = ["Stream Name"]
     values_suggested       = []
   }
 
