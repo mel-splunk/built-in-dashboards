@@ -54,6 +54,10 @@ module "aws_kinesis_streams" {
   source = "./aws_kinesis_streams"
 }
 
+module "aws_lambda" {
+  source = "./aws_lambda"
+}
+
 module "aws_rds_enhanced" {
   source = "./aws_rds_enhanced"
 }
