@@ -299,7 +299,6 @@ resource "signalfx_time_chart" "sfx_aws_lambda_sfx_function_8" {
   disable_sampling          = false
   minimum_resolution        = 0
   name                      = "Duration"
-  on_chart_legend_dimension = "plot_label"
   plot_type                 = "AreaChart"
   program_text              = <<-EOF
         A = data('function.duration', rollup='average').mean().publish(label='A', enable=False)
