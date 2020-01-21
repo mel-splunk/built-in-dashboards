@@ -114,6 +114,27 @@ resource "signalfx_dashboard" "sfx_aws_ecs_aws_service" {
   dashboard_group   = signalfx_dashboard_group.sfx_aws_ecs.id
   name              = "ECS (AWS) Service"
 
+  variable {
+    alias                  = "Cluster"
+    apply_if_exist         = false
+    property               = "ClusterName"
+    replace_only           = false
+    restricted_suggestions = false
+    value_required         = false
+    values                 = []
+    values_suggested       = []
+  }
+  variable {
+    alias                  = "Service"
+    apply_if_exist         = false
+    property               = "ServiceName"
+    replace_only           = false
+    restricted_suggestions = false
+    value_required         = false
+    values                 = []
+    values_suggested       = []
+  }
+
   chart {
     chart_id = signalfx_single_value_chart.sfx_aws_ecs_aws_service_running_tasks_count.id
     row      = 0
