@@ -292,15 +292,15 @@ resource "signalfx_single_value_chart" "sfx_aws_lambda_sfx_function_7" {
 }
 
 resource "signalfx_time_chart" "sfx_aws_lambda_sfx_function_8" {
-  axes_include_zero         = false
-  axes_precision            = 0
-  color_by                  = "Dimension"
-  description               = "percentile distribution"
-  disable_sampling          = false
-  minimum_resolution        = 0
-  name                      = "Duration"
-  plot_type                 = "AreaChart"
-  program_text              = <<-EOF
+  axes_include_zero  = false
+  axes_precision     = 0
+  color_by           = "Dimension"
+  description        = "percentile distribution"
+  disable_sampling   = false
+  minimum_resolution = 0
+  name               = "Duration"
+  plot_type          = "AreaChart"
+  program_text       = <<-EOF
         A = data('function.duration', rollup='average').mean().publish(label='A', enable=False)
         B = (A).max().publish(label='B')
         C = (A).min().publish(label='C')
@@ -308,11 +308,11 @@ resource "signalfx_time_chart" "sfx_aws_lambda_sfx_function_8" {
         E = (A).percentile(pct=50).publish(label='E')
         F = (A).percentile(pct=90).publish(label='F')
     EOF
-  show_data_markers         = false
-  show_event_lines          = false
-  stacked                   = false
-  time_range                = 900
-  unit_prefix               = "Metric"
+  show_data_markers  = false
+  show_event_lines   = false
+  stacked            = false
+  time_range         = 900
+  unit_prefix        = "Metric"
 
   axis_left {
     label = "ms"
