@@ -81,3 +81,11 @@ module "aws_redshift" {
 module "aws_route53" {
   source = "./aws_route53"
 }
+
+module "aws_sns" {
+  source = "./aws_sns"
+}
+
+module "aws_sqs" {
+  source = "./aws_sqs"
+}
