@@ -1,9 +1,37 @@
-variable "sfx_token" {
+variable "sfx_tokens" {
   description = "Your SignalFx token"
+  type = map
+  default = {
+    "default" = ""
+    "personal" = ""
+    "lab" = ""
+  }
+}
+
+variable "sfx_api_urls" {
+  description = "URL for API"
+  type = map
+  default = {
+    "default" = "https://app.us0.signalfx.com"
+    "personal" = "https://app.signalfx.com"
+    "lab" = "https://app.signalfx.com"
+  }
+}
+
+variable "sfx_custom_urls" {
+  description = "URL for API"
+  type = map
+  default = {
+    "default" = "https://sfdemo.signalfx.com"
+    "personal" = "https://app.signalfx.com"
+    "lab" = "https://app.signalfx.com"
+  }
 }
 
 provider "signalfx" {
-  auth_token = var.sfx_token
+  auth_token = var.sfx_tokens[terraform.workspace]
+  api_url = var.sfx_api_urls[terraform.workspace]
+  custom_app_url = var.sfx_custom_urls[terraform.workspace]
 }
 
 module "aws_alb" {
