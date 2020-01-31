@@ -16,43 +16,33 @@ You'll need to provide the var `sfx_token` to use this. I recommend using a `ter
 
 # Importer
 
-There is an included `import_dashboard.py` script which aims to reduce the effort of importing an existing dashboard. I say reduce because it only automates a portion.
+There is an included `import_dashboard.py` script which aims to reduce the effort of importing an existing dashboard.
+
+```
+usage: import_dashboard.py [-h] --key KEY [--api_url API_URL] --name NAME --id
+                           ID [--exclude [EXCLUDES [EXCLUDES ...]]]
+
+Export a SignalFx asset as Terraform
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --key KEY             An API key for accessing SignalFx
+  --api_url API_URL     The API URL, used for non-default realms
+  --name NAME           The name of the resource after export, e.g. mychart0
+  --id ID               The ID of the asset in SignalFx
+  --exclude [EXCLUDES [EXCLUDES ...]]
+                        A field to exclude from the emitted HCL
+```
+
+Here's an example:
 
 ```
 # You can setup a virtualenv and such, use `requirements.txt`
-python import_dashboard.py SFX_KEY dashboardId dashboardName > scratchdir/main.tf
+python import_dashboard.py --key XxX --id DjJ6MCMAgAA --name sfx_aws_sqs_queue
 ```
 
-The output of this command is of the shape suitable for `terraform import`. Since this command can only work on single resources we've now got to do the rest of the work by hand. The output looks like:
+This command will recursively export each individual chart in a dashboard group. And emit a dashboard definition where these charts are referred to by their Terraform resource name.
 
-```
-terraform import signalfx_time_chart.sfx_aws_ec2_instances_0 DjJ6LAIAcAA; terraform state show -no-color signalfx_time_chart.sfx_aws_ec2_instances_0 | grep -v url | grep -v -E "id *" | grep -v 17976931348623157 | -v -E "tags *" | pbcopy
-resource "signalfx_time_chart" "sfx_aws_ec2_instances_0" {
-}
-# repeated many times
-resource "signalfx_dashboard" "signalfx_aws_ec2_instances" {
-  chart {
-    # Each chart here, repeated
-  }
-}
-```
+## Notes
 
-You can then cut and paste the `signalfx_dashboard` section to your *real* working directory. (Or maybe just the `chart` bits since it's better to `terraform import` the dashboard separately to get it's other parts)
-
- Comment out all the other lines and begin a process that looks like this:
-
-```
-# copy the terraform import line
-$ terraform import signalfx_time_chart.sfx_aws_ec2_instances_0 DjJ6LAIAcAA; terraform state show -no-color signalfx_time_chart.sfx_aws_ec2_instances_0 | grep -v url | grep -v -E "id *" | grep -v 17976931348623157 | -v -E "tags *" | pbcopy
-signalfx_time_chart.sfx_aws_ec2_instances_0: Importing from ID "DjJ6LAIAcAA"...
-signalfx_time_chart.sfx_aws_ec2_instances_0: Import prepared!
-  Prepared signalfx_time_chart for import
-signalfx_time_chart.sfx_aws_ec2_instances_0: Refreshing state... [id=DjJ6LAIAcAA]
-
-Import successful!
-
-The resources that were imported are shown above. These resources are now in
-your Terraform state and will henceforth be managed by Terraform
-```
-
-After running this the "state" will be in your buffer (via `pbcopy`) and you can paste it into an editor or whatever.
+The exporter does some regex surgery out the outputted HCL. By default it excludes computed fields `id` and `url` as well as the problematic `tags` field, which is deprecated. It also removes the "bounds" values for axes that are just fixed values and bare `viz_options` fields that only specify a label and no other information. The latter can cause weird problems on creation.
