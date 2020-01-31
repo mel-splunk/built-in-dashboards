@@ -6,7 +6,7 @@ You can use these Terraform definitions to either submit improvements to the Sig
 
 # Structure
 
-Each "integration" is contained in a module. For example the AWS EC2 integration is contained in the "aws_ec2" directory. Any associated dashboards groups are specified therein. The convention is that each dashboard gets it's own tf file.
+Each "integration" is contained in a module. For example the AWS EC2 integration is contained in the "aws_ec2" directory. Any associated dashboards groups are specified therein. The convention is that each dashboard gets its own tf file.
 
 # Using It
 
@@ -14,12 +14,12 @@ Using this repo you can `terraform apply` yourself a full copy of all the dashbo
 
 You'll need to provide the var `sfx_token` to use this. I recommend using a `terraform.tfvars` file, which is already in the `.gitignore` for frequent users.
 
-# Importer
+# Exporter
 
-There is an included `import_dashboard.py` script which aims to reduce the effort of importing an existing dashboard.
+There is an included `export_dashboard.py` script which aims to reduce the effort of export an existing dashboard.
 
 ```
-usage: import_dashboard.py [-h] --key KEY [--api_url API_URL] --name NAME --id
+usage: export_dashboard.py [-h] --key KEY [--api_url API_URL] --name NAME --id
                            ID [--exclude [EXCLUDES [EXCLUDES ...]]]
 
 Export a SignalFx asset as Terraform
@@ -38,7 +38,7 @@ Here's an example:
 
 ```
 # You can setup a virtualenv and such, use `requirements.txt`
-python import_dashboard.py --key XxX --id DjJ6MCMAgAA --name sfx_aws_sqs_queue
+python export_dashboard.py --key XxX --id DjJ6MCMAgAA --name sfx_aws_sqs_queue
 ```
 
 This command will recursively export each individual chart in a dashboard group. And emit a dashboard definition where these charts are referred to by their Terraform resource name.
